@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+dist/
+deliverables/
+wire/
+ledger.jsonl
+node_modules/
+*.bundle
+.dsh-office*

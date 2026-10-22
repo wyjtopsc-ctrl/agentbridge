@@ -1,0 +1,32 @@
+{
+  "expected_bridge_id": "br-0e3410047f9f0a1b",
+  "expected_actors": [
+    {
+      "actor": "client",
+      "fingerprint": "sha256:1325b850c2871916"
+    },
+    {
+      "actor": "worker",
+      "fingerprint": "sha256:10ba682c8ad13513"
+    }
+  ],
+  "expected_exporter": {
+    "actor": "exporter",
+    "fingerprint": "sha256:b4c1ece898ece24e"
+  },
+  "anchor_service_pubs": [
+    "17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce"
+  ],
+  "status_publisher_pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+  "max_status_age_hours": 438000,
+  "max_future_skew_seconds": 300,
+  "minimum_checkpoint_seq": 8,
+  "known_checkpoint": {
+    "bridge_id": "br-0e3410047f9f0a1b",
+    "seq": 8,
+    "digest": "47042b8b76f60b3d37ed3f80d5c356d9501488ae711939ed893e69b657e617f6"
+  },
+  "expected_versions": {
+    "20261021T155816-worker-70fedb472c15c6fe": "v2"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "v": 2,
+  "id": "20261021T155816-client-11cb26730bef6cc3",
+  "from": "client",
+  "to": "worker",
+  "intent": "message",
+  "in_reply_to": null,
+  "created_at": "2026-10-21T15:58:16+08:00",
+  "body": "do it",
+  "artifacts": [
+    {
+      "role": "target",
+      "path": "/var/folders/nf/5vzl4cfs5hn3nq8s47xtbzmm0000gn/T/agentbridge-v2fixture.l7jho9by/request.md",
+      "rel": "../request.md",
+      "sha256": "2432fdd701494917e59cdc4e391267dc2ba8127a4556c05eace9668dd19d4c49",
+      "bytes": 8,
+      "stored_as": "wire/artifacts/2432fdd701494917e59cdc4e391267dc2ba8127a4556c05eace9668dd19d4c49",
+      "recorded_at": "2026-10-21T15:58:16+08:00"
+    }
+  ],
+  "reply_box": "wire/inbox",
+  "signature": {
+    "alg": "ed25519",
+    "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+    "sig": "83e1bcfd863003e960e65bd0fedc972fc30a8ba007fdd76e50cea1f39aa735db5dec1183403d10e20bfff5fc9f2ea9fb92365f42ca2e973261b477d6c186b808"
+  }
+}

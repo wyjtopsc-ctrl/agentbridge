@@ -1,0 +1,20 @@
+{
+  "protocol_version": "0.2",
+  "acceptance_id": "acc-20261021T155816-worker-d81f303392aca5f7",
+  "delivery_id": "20261021T155816-worker-70fedb472c15c6fe",
+  "version": "v2",
+  "delivery_ref": "20261021T155816-worker-d81f303392aca5f7",
+  "artifacts_sha256": [
+    "c9259e0bed93e50926d0011d8cf989cfb0434f7077d9ef4cf975405be22d9844"
+  ],
+  "decision": "accepted",
+  "reason": "",
+  "requires_anchoring": false,
+  "actor": "client",
+  "signed_at": "2026-10-21T15:58:16+08:00",
+  "signature": {
+    "alg": "ed25519",
+    "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+    "sig": "80aea9f3bb2422aa98b27a4944b48cc586e7256900892a7fbf7e9fd8e3b6bd28a99cb4229a9da18607aacc8fa48dc229584039c5fb365665c4e98bb3efc12f04"
+  }
+}

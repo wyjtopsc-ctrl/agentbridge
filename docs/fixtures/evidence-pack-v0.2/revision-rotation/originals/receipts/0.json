@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "bridge_id": "br-0e3410047f9f0a1b",
+  "seq": 8,
+  "digest": "47042b8b76f60b3d37ed3f80d5c356d9501488ae711939ed893e69b657e617f6",
+  "log_index": 0,
+  "received_at": "2026-10-21T12:00:00+08:00",
+  "client_pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+  "service_pub": "17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce",
+  "prev": "",
+  "service_sig": "7c8022754ee48a0e29c5c2209c199996f8e79e99dd9678ad5793c7f7ca17dbd02d6a4dabc863892f50f6277f4369519644ced5be63012750c3db9f85cdb18600"
+}

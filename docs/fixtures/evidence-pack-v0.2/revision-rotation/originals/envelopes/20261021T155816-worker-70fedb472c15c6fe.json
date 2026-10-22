@@ -1,0 +1,28 @@
+{
+  "v": 2,
+  "id": "20261021T155816-worker-70fedb472c15c6fe",
+  "from": "worker",
+  "to": "client",
+  "intent": "deliver",
+  "in_reply_to": "20261021T155816-client-11cb26730bef6cc3",
+  "created_at": "2026-10-21T15:58:16+08:00",
+  "body": "v1",
+  "artifacts": [
+    {
+      "role": "deliverable",
+      "path": "/var/folders/nf/5vzl4cfs5hn3nq8s47xtbzmm0000gn/T/agentbridge-v2fixture.l7jho9by/report-v1.md",
+      "rel": "../report-v1.md",
+      "sha256": "7c35ae671ad15dca82c2d8d1308976bd589b605a1f4691a11335cf9f05218de4",
+      "bytes": 10,
+      "stored_as": "wire/artifacts/7c35ae671ad15dca82c2d8d1308976bd589b605a1f4691a11335cf9f05218de4",
+      "recorded_at": "2026-10-21T15:58:16+08:00"
+    }
+  ],
+  "version": "v1",
+  "previous_delivery": null,
+  "signature": {
+    "alg": "ed25519",
+    "pub": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+    "sig": "fdf5cd0a26ec4a5ba77d46fc0611b75f44eaa7279253c9a8af050768d9cdccd111c6c93bbda36058e38ac55e98648fe97b4c365b2f6a5a27352a4174e2bd810a"
+  }
+}

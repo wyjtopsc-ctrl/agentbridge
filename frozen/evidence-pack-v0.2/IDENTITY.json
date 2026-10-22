@@ -1,0 +1,11 @@
+{
+  "protocol": "evidence-pack v0.2",
+  "product": "0.9.3",
+  "commit": "641a53a2f3394a953033bb13eb5588bd52262a15",
+  "product_tag": "v0.9.3",
+  "protocol_tag": "protocol-v0.2-frozen",
+  "frozen_on": "2026-10-21",
+  "independent_audit": false,
+  "remote_ci": "not run",
+  "note": "2026-10-21 approval-provenance correction; protocol semantics unchanged"
+}

@@ -1,0 +1,168 @@
+{
+  "pack_version": "agentbridge-evidence/0.1",
+  "created_at": "2026-10-21T12:00:05+08:00",
+  "as_of": {
+    "key_status": "2026-10-21T11:00:00+08:00",
+    "anchors": "2026-10-21T12:00:04+08:00"
+  },
+  "bridge_id": "br-8e2b2208e2d6e54f",
+  "task": {
+    "external_ref": {
+      "system": "fixture",
+      "id": "TASK-1"
+    },
+    "title": "fixture"
+  },
+  "deliveries": [
+    {
+      "delivery_id": "dlv-1",
+      "version": "v1",
+      "previous_version": null,
+      "artifacts": [
+        {
+          "role": "deliverable",
+          "name": "report.pdf",
+          "sha256": "f92e7ed380942e9d829f1aeac564a19a334fa1aa02e329d04c589521f6a96d18",
+          "bytes": 19
+        },
+        {
+          "role": "deliverable",
+          "name": "module.py",
+          "sha256": "caf026f25d7140209f98072605307a438914b9ce6f3c14b23d15d9667241de52",
+          "bytes": 13
+        }
+      ],
+      "submitted_at": "2026-10-21T12:00:02+08:00",
+      "sender": "worker",
+      "ledger_seq": 4,
+      "envelope_id": "env-deliver",
+      "envelope_path": "originals/envelopes/env-deliver.json",
+      "envelope_sha256": "1cc5fa3556fc6a20d429ca78015702e6cfe23a9170bc1fd45a155ae36c25f0b6"
+    }
+  ],
+  "acceptances": [
+    {
+      "acceptance_id": "acc-1",
+      "delivery_id": "dlv-1",
+      "version": "v1",
+      "artifacts_sha256": [
+        "caf026f25d7140209f98072605307a438914b9ce6f3c14b23d15d9667241de52",
+        "f92e7ed380942e9d829f1aeac564a19a334fa1aa02e329d04c589521f6a96d18"
+      ],
+      "decision": "accepted",
+      "reason": "",
+      "requires_anchoring": false,
+      "actor": "client",
+      "signed_at": "2026-10-21T12:00:03+08:00",
+      "ledger_seq": 5,
+      "record_path": "originals/acceptances/acc-1.json",
+      "record_sha256": "d26fcff22cb17af3acff4b7376e74e9ace239e343e2428e1b6102d899696ab59"
+    }
+  ],
+  "identity": {
+    "actors": [
+      {
+        "actor": "worker",
+        "pub": "34b4d9043156cb6dcf0beb0a2949b7559c940d2bcb6dbe8c53a9b30278e3a746",
+        "fingerprint": "sha256:f7b7676c94df7e8f",
+        "registered_seq": 1
+      },
+      {
+        "actor": "client",
+        "pub": "c853ad0f0cd2b619aea92ceec4fd56a24d6499d584ce79257e45cfd8139b60a7",
+        "fingerprint": "sha256:d2f381d7b0b5f1d3",
+        "registered_seq": 2
+      }
+    ],
+    "status": {
+      "path": "originals/status.json",
+      "sha256": "3b3d17277237e36bc47e201e1f91808e23b52e9f3936b6e303f635415b7519d5",
+      "publisher_pub": "332ebe8d27cb7323b3a401c1c13b5dd64bccc0e10ecda1c2b5d11a03779a85e5",
+      "published_at": "2026-10-21T11:00:00+08:00",
+      "valid_until": "2026-10-22T11:00:00+08:00",
+      "revocations": []
+    }
+  },
+  "ledger": {
+    "path": "originals/ledger.jsonl",
+    "sha256": "fd822cfd98bf28de7279b39b04768b87ed2606fa9264af8c950493fa9b985b8b",
+    "base": "genesis",
+    "tip_seq": 5,
+    "tip_digest": "5a816078a303431f0f4a3159265e96f93f22b2f484503825441f1ca3f4a62c2b"
+  },
+  "envelopes": [
+    {
+      "id": "env-send",
+      "path": "originals/envelopes/env-send.json",
+      "sha256": "8298b8bf75c2e063b16d44d7c5b06619c1c926be84d863df2337580cc293bf16"
+    },
+    {
+      "id": "env-deliver",
+      "path": "originals/envelopes/env-deliver.json",
+      "sha256": "1cc5fa3556fc6a20d429ca78015702e6cfe23a9170bc1fd45a155ae36c25f0b6"
+    }
+  ],
+  "anchors": [
+    {
+      "path": "originals/receipts/0.json",
+      "sha256": "a1d85fbed6acdaed3f872f7e61424440b07b7cba16a4a8976d12be16179d90f7",
+      "service_pub": "b2491d9502ae28630a2bacb2e0c74510ffcdd328c334ff3e1393e75b2d31e7dc",
+      "covers_seq": 5,
+      "covers_digest": "5a816078a303431f0f4a3159265e96f93f22b2f484503825441f1ca3f4a62c2b",
+      "log_index": 0,
+      "received_at": "2026-10-21T12:00:04+08:00"
+    }
+  ],
+  "coverage": {
+    "expected_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "recorded_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "gaps": []
+  },
+  "content_mode": "hashes_only",
+  "limits": [
+    "附件内容未包含在包内，内容复核未执行",
+    "离线无法确认是否为最新历史",
+    "未锚定尾部回滚不可发现"
+  ],
+  "signed_files": [
+    {
+      "path": "originals/ledger.jsonl",
+      "sha256": "fd822cfd98bf28de7279b39b04768b87ed2606fa9264af8c950493fa9b985b8b"
+    },
+    {
+      "path": "originals/envelopes/env-send.json",
+      "sha256": "8298b8bf75c2e063b16d44d7c5b06619c1c926be84d863df2337580cc293bf16"
+    },
+    {
+      "path": "originals/envelopes/env-deliver.json",
+      "sha256": "1cc5fa3556fc6a20d429ca78015702e6cfe23a9170bc1fd45a155ae36c25f0b6"
+    },
+    {
+      "path": "originals/acceptances/acc-1.json",
+      "sha256": "d26fcff22cb17af3acff4b7376e74e9ace239e343e2428e1b6102d899696ab59"
+    },
+    {
+      "path": "originals/status.json",
+      "sha256": "3b3d17277237e36bc47e201e1f91808e23b52e9f3936b6e303f635415b7519d5"
+    },
+    {
+      "path": "originals/receipts/0.json",
+      "sha256": "a1d85fbed6acdaed3f872f7e61424440b07b7cba16a4a8976d12be16179d90f7"
+    }
+  ],
+  "signatures": {
+    "exporter": {
+      "alg": "ed25519",
+      "pub": "e734ea6c2b6257de72355e472aa05a4c487e6b463c029ed306df2f01b5636b58",
+      "sig": "594388206344d46d4df5af47169d0b54912f1e62f897ea73370dce1d6fba831e2459c87d59f3617bd97b4337d3a6cd63c03dee4875bd0f47e7cefff439ffc800"
+    }
+  }
+}

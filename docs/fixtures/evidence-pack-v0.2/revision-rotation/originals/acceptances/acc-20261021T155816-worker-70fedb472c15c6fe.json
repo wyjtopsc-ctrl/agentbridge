@@ -1,0 +1,20 @@
+{
+  "protocol_version": "0.2",
+  "acceptance_id": "acc-20261021T155816-worker-70fedb472c15c6fe",
+  "delivery_id": "20261021T155816-worker-70fedb472c15c6fe",
+  "version": "v1",
+  "delivery_ref": "20261021T155816-worker-70fedb472c15c6fe",
+  "artifacts_sha256": [
+    "7c35ae671ad15dca82c2d8d1308976bd589b605a1f4691a11335cf9f05218de4"
+  ],
+  "decision": "rejected",
+  "reason": "missing tests",
+  "requires_anchoring": false,
+  "actor": "client",
+  "signed_at": "2026-10-21T15:58:16+08:00",
+  "signature": {
+    "alg": "ed25519",
+    "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+    "sig": "2b1ff2a77a1dc8d26307a1dccf0616469363d55ef4410ea2b9f210bcee8376231f1602a86e5cbeba13591ca2280651d57ad70a3fe02c74a82ae05b74a2b0d307"
+  }
+}

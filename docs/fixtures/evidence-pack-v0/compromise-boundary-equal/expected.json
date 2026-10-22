@@ -1,0 +1,17 @@
+{
+  "axes": {
+    "integrity": "pass",
+    "identity": "unknown",
+    "acceptance": "pass",
+    "coverage": "pass",
+    "anchoring": "pass",
+    "content": "not_executed"
+  },
+  "exit_code": 2,
+  "codes": [
+    "E-KEY-COMPROMISE-SUSPECTED"
+  ],
+  "checks": {
+    "identity.revocation": "unknown"
+  }
+}

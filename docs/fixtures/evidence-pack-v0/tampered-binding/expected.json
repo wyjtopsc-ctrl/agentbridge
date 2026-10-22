@@ -1,0 +1,19 @@
+{
+  "axes": {
+    "integrity": "fail",
+    "identity": "pass",
+    "acceptance": "pass",
+    "coverage": "pass",
+    "anchoring": "pass",
+    "content": "not_executed"
+  },
+  "exit_code": 1,
+  "codes": [
+    "E-ENVELOPE-MISMATCH"
+  ],
+  "checks": {
+    "integrity.envelope_signature": "pass",
+    "integrity.envelope_binding": "fail",
+    "identity.records_signed": "pass"
+  }
+}

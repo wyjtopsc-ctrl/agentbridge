@@ -1,0 +1,19 @@
+{
+  "axes": {
+    "integrity": "pass",
+    "identity": "pass",
+    "acceptance": "pass",
+    "coverage": "pass",
+    "anchoring": "pass",
+    "content": "not_executed"
+  },
+  "exit_code": 2,
+  "checks": {
+    "integrity.envelope_signature": "pass",
+    "integrity.envelope_binding": "pass",
+    "identity.records_signed": "pass",
+    "identity.trust_set": "pass",
+    "acceptance.binding": "pass",
+    "anchoring.checkpoint": "pass"
+  }
+}

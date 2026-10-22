@@ -1,0 +1,32 @@
+{
+  "expected_bridge_id": "br-9425ca4565b3be8b",
+  "expected_actors": [
+    {
+      "actor": "worker",
+      "fingerprint": "sha256:10ba682c8ad13513"
+    },
+    {
+      "actor": "client",
+      "fingerprint": "sha256:1325b850c2871916"
+    }
+  ],
+  "expected_exporter": {
+    "actor": "exporter",
+    "fingerprint": "sha256:b4c1ece898ece24e"
+  },
+  "anchor_service_pubs": [
+    "17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce"
+  ],
+  "status_publisher_pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+  "max_status_age_hours": 24,
+  "max_future_skew_seconds": 300,
+  "minimum_checkpoint_seq": 5,
+  "known_checkpoint": {
+    "bridge_id": "br-9425ca4565b3be8b",
+    "seq": 99,
+    "digest": "7cc1a5f2ec4faf9740554dd17da844d8f95190061b4c9c224425f155e79633ac"
+  },
+  "expected_versions": {
+    "dlv-1": "v1"
+  }
+}

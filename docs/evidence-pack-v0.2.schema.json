@@ -1,0 +1,627 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://agentbridge.dev/schemas/evidence-pack-v0.2.schema.json",
+  "title": "agentbridge evidence pack v0.2",
+  "description": "Draft v0.2: key timeline (register/rotate/revoke) and delivery revisions are part of the evidence, each tied to a ledger position and digest. Content mode is hashes_only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pack_version",
+    "created_at",
+    "as_of",
+    "bridge_id",
+    "task",
+    "deliveries",
+    "identity",
+    "ledger",
+    "envelopes",
+    "anchors",
+    "coverage",
+    "content_mode",
+    "limits",
+    "signed_files",
+    "signatures"
+  ],
+  "properties": {
+    "pack_version": {
+      "const": "agentbridge-evidence/0.2"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "as_of": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "key_status"
+      ],
+      "properties": {
+        "key_status": {
+          "type": "string",
+          "format": "date-time",
+          "description": "How far offline key-status information goes; must not imply latest."
+        },
+        "anchors": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "bridge_id": {
+      "type": "string",
+      "pattern": "^br-[0-9a-f]{16}$"
+    },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_ref"
+      ],
+      "properties": {
+        "external_ref": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "system",
+            "id"
+          ],
+          "properties": {
+            "system": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string"
+            }
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "deliveries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "delivery_id",
+          "version",
+          "artifacts",
+          "submitted_at",
+          "sender",
+          "ledger_seq",
+          "envelope_id",
+          "envelope_path",
+          "envelope_sha256"
+        ],
+        "properties": {
+          "delivery_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "previous_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ledger_seq": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "artifacts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "role",
+                "name",
+                "sha256",
+                "bytes"
+              ],
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                },
+                "bytes": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "envelope_id": {
+            "type": "string"
+          },
+          "envelope_path": {
+            "type": "string"
+          },
+          "envelope_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "acceptances": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "acceptance_id",
+          "delivery_id",
+          "version",
+          "artifacts_sha256",
+          "decision",
+          "actor",
+          "signed_at",
+          "ledger_seq",
+          "record_path",
+          "record_sha256"
+        ],
+        "properties": {
+          "acceptance_id": {
+            "type": "string"
+          },
+          "delivery_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "artifacts_sha256": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "decision": {
+            "enum": [
+              "accepted",
+              "rejected"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "requires_anchoring": {
+            "type": "boolean",
+            "default": false
+          },
+          "actor": {
+            "type": "string"
+          },
+          "signed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ledger_seq": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "record_path": {
+            "type": "string"
+          },
+          "record_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actors",
+        "history",
+        "status"
+      ],
+      "properties": {
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "actor",
+              "pub",
+              "fingerprint"
+            ],
+            "properties": {
+              "actor": {
+                "type": "string"
+              },
+              "pub": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "fingerprint": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{16}$"
+              },
+              "registered_seq": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "organization": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "publisher_pub",
+            "published_at",
+            "valid_until"
+          ],
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "publisher_pub": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "published_at": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "valid_until": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "revocations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "actor",
+                  "fingerprint",
+                  "kind",
+                  "effective_at"
+                ],
+                "properties": {
+                  "actor": {
+                    "type": "string"
+                  },
+                  "fingerprint": {
+                    "type": "string",
+                    "pattern": "^sha256:[0-9a-f]{16}$"
+                  },
+                  "kind": {
+                    "enum": [
+                      "normal_retirement",
+                      "suspected_compromise",
+                      "revoked"
+                    ]
+                  },
+                  "effective_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "suspected_leak_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "date-time"
+                  },
+                  "evidence": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "actor",
+              "ledger_seq",
+              "digest"
+            ],
+            "properties": {
+              "kind": {
+                "enum": [
+                  "register",
+                  "rotate",
+                  "revoke"
+                ]
+              },
+              "actor": {
+                "type": "string"
+              },
+              "ledger_seq": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "digest": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "pub": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "old_pub": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "new_pub": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "reason": {
+                "type": "string"
+              },
+              "fingerprint": {
+                "type": "string",
+                "pattern": "^sha256:[0-9a-f]{16}$"
+              },
+              "revocation_kind": {
+                "enum": [
+                  "normal_retirement",
+                  "suspected_compromise",
+                  "revoked"
+                ]
+              },
+              "effective_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "suspected_leak_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ledger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "base",
+        "tip_seq",
+        "tip_digest"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "base": {
+          "const": "genesis"
+        },
+        "tip_seq": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tip_digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "envelopes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "anchors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256",
+          "service_pub",
+          "covers_seq",
+          "covers_digest",
+          "log_index",
+          "received_at"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "service_pub": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "covers_seq": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "covers_digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "log_index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "received_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_events",
+        "recorded_events",
+        "gaps"
+      ],
+      "properties": {
+        "expected_events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recorded_events": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "content_mode": {
+      "const": "hashes_only"
+    },
+    "limits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "signed_files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "signatures": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exporter"
+      ],
+      "properties": {
+        "exporter": {
+          "$ref": "#/$defs/signature"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alg",
+        "pub",
+        "sig"
+      ],
+      "properties": {
+        "alg": {
+          "const": "ed25519"
+        },
+        "pub": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "sig": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{128}$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "pack_version": "agentbridge-evidence/0.1",
+  "created_at": "2026-10-21T12:00:05+08:00",
+  "as_of": {
+    "key_status": "2026-10-21T11:00:00+08:00",
+    "anchors": "2026-10-21T12:00:04+08:00"
+  },
+  "bridge_id": "br-9425ca4565b3be8b",
+  "task": {
+    "external_ref": {
+      "system": "fixture",
+      "id": "TASK-1"
+    },
+    "title": "fixture"
+  },
+  "deliveries": [
+    {
+      "delivery_id": "dlv-1",
+      "version": "v1",
+      "previous_version": null,
+      "artifacts": [
+        {
+          "role": "deliverable",
+          "name": "report.pdf",
+          "sha256": "f92e7ed380942e9d829f1aeac564a19a334fa1aa02e329d04c589521f6a96d18",
+          "bytes": 19
+        },
+        {
+          "role": "deliverable",
+          "name": "module.py",
+          "sha256": "caf026f25d7140209f98072605307a438914b9ce6f3c14b23d15d9667241de52",
+          "bytes": 13
+        }
+      ],
+      "submitted_at": "2026-10-21T12:00:02+08:00",
+      "sender": "worker",
+      "ledger_seq": 4,
+      "envelope_id": "env-deliver",
+      "envelope_path": "originals/envelopes/env-deliver.json",
+      "envelope_sha256": "b9aeb666f919727578d4bff592549aec3bce2dee034aa995746825ead598d8c4"
+    }
+  ],
+  "acceptances": [
+    {
+      "acceptance_id": "acc-1",
+      "delivery_id": "dlv-1",
+      "version": "v1",
+      "artifacts_sha256": [
+        "caf026f25d7140209f98072605307a438914b9ce6f3c14b23d15d9667241de52",
+        "f92e7ed380942e9d829f1aeac564a19a334fa1aa02e329d04c589521f6a96d18"
+      ],
+      "decision": "accepted",
+      "reason": "",
+      "requires_anchoring": false,
+      "actor": "client",
+      "signed_at": "2026-10-21T12:00:03+08:00",
+      "ledger_seq": 5,
+      "record_path": "originals/acceptances/acc-1.json",
+      "record_sha256": "af9a1b691b3c6901c8f7664a567a0c3c17560985acaf3fa845595ea0ec14abc6"
+    }
+  ],
+  "identity": {
+    "actors": [
+      {
+        "actor": "worker",
+        "pub": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+        "fingerprint": "sha256:10ba682c8ad13513",
+        "registered_seq": 1
+      },
+      {
+        "actor": "client",
+        "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+        "fingerprint": "sha256:1325b850c2871916",
+        "registered_seq": 2
+      }
+    ],
+    "status": {
+      "path": "originals/status.json",
+      "sha256": "9136fdf6179ca518b208f7a7f7dda951fe92174a9c83dc768fcc1f09441275b3",
+      "publisher_pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+      "published_at": "2026-10-21T11:00:00+08:00",
+      "valid_until": "2026-10-22T11:00:00+08:00",
+      "revocations": [
+        {
+          "actor": "worker",
+          "fingerprint": "sha256:10ba682c8ad13513",
+          "kind": "normal_retirement",
+          "effective_at": "2026-10-21T12:00:03+08:00",
+          "suspected_leak_at": null,
+          "evidence": "fixture"
+        }
+      ]
+    }
+  },
+  "ledger": {
+    "path": "originals/ledger.jsonl",
+    "sha256": "31669e6033036ccbca5198536ff58c98a3c3ac0b7cc0fd67e7518bc40774fa0b",
+    "base": "genesis",
+    "tip_seq": 5,
+    "tip_digest": "7cc1a5f2ec4faf9740554dd17da844d8f95190061b4c9c224425f155e79633ac"
+  },
+  "envelopes": [
+    {
+      "id": "env-send",
+      "path": "originals/envelopes/env-send.json",
+      "sha256": "4e6e6ff30a9b5bcb28eeb30f2b9d2a8efd4dd9d2b43d6cec7d9483aed0f32c80"
+    },
+    {
+      "id": "env-deliver",
+      "path": "originals/envelopes/env-deliver.json",
+      "sha256": "b9aeb666f919727578d4bff592549aec3bce2dee034aa995746825ead598d8c4"
+    }
+  ],
+  "anchors": [
+    {
+      "path": "originals/receipts/0.json",
+      "sha256": "e7237018131fcf88f9d27637a18cee2843dfb4bdbc44b68d4a3e79deb04626e9",
+      "service_pub": "17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce",
+      "covers_seq": 5,
+      "covers_digest": "7cc1a5f2ec4faf9740554dd17da844d8f95190061b4c9c224425f155e79633ac",
+      "log_index": 0,
+      "received_at": "2026-10-21T12:00:03+08:00"
+    }
+  ],
+  "coverage": {
+    "expected_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "recorded_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "gaps": []
+  },
+  "content_mode": "hashes_only",
+  "limits": [
+    "附件内容未包含在包内，内容复核未执行",
+    "离线无法确认是否为最新历史",
+    "未锚定尾部回滚不可发现"
+  ],
+  "signed_files": [
+    {
+      "path": "originals/ledger.jsonl",
+      "sha256": "31669e6033036ccbca5198536ff58c98a3c3ac0b7cc0fd67e7518bc40774fa0b"
+    },
+    {
+      "path": "originals/envelopes/env-send.json",
+      "sha256": "4e6e6ff30a9b5bcb28eeb30f2b9d2a8efd4dd9d2b43d6cec7d9483aed0f32c80"
+    },
+    {
+      "path": "originals/envelopes/env-deliver.json",
+      "sha256": "b9aeb666f919727578d4bff592549aec3bce2dee034aa995746825ead598d8c4"
+    },
+    {
+      "path": "originals/acceptances/acc-1.json",
+      "sha256": "af9a1b691b3c6901c8f7664a567a0c3c17560985acaf3fa845595ea0ec14abc6"
+    },
+    {
+      "path": "originals/status.json",
+      "sha256": "9136fdf6179ca518b208f7a7f7dda951fe92174a9c83dc768fcc1f09441275b3"
+    },
+    {
+      "path": "originals/receipts/0.json",
+      "sha256": "e7237018131fcf88f9d27637a18cee2843dfb4bdbc44b68d4a3e79deb04626e9"
+    }
+  ],
+  "signatures": {
+    "exporter": {
+      "alg": "ed25519",
+      "pub": "c6822637c7d310ec57627be00ba259d253749f4aaf644470cffbe53a35f73242",
+      "sig": "639a98b6d0ea7b3732738dfc605425bda34dda0408eafcbc054766d1bb3f123f6ac4440a7b8cd874f290a7702b971baee95a07e0c632157bf4bf1379a572ba0b"
+    }
+  }
+}

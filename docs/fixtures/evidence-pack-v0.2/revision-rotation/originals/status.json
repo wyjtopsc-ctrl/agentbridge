@@ -1,0 +1,12 @@
+{
+  "protocol_version": "0.1",
+  "published_at": "2026-10-21T12:00:00+08:00",
+  "valid_until": "2099-01-01T00:00:00+08:00",
+  "publisher_pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+  "revocations": [],
+  "signature": {
+    "alg": "ed25519",
+    "pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+    "sig": "e8c0047560416d85fc56d8fc777c30820b0f0ea4c176514ca1e375cf5e54dfed4520fde0e0526da1070129a9e05d5bcf8d0fd78b3f075b87164250c89e6e8209"
+  }
+}

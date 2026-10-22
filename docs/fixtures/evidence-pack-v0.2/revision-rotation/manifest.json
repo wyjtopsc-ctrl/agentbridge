@@ -1,0 +1,234 @@
+{
+  "pack_version": "agentbridge-evidence/0.2",
+  "created_at": "2026-10-21T15:58:16+08:00",
+  "as_of": {
+    "key_status": "2026-10-21T12:00:00+08:00",
+    "anchors": "2026-10-21T12:00:00+08:00"
+  },
+  "bridge_id": "br-0e3410047f9f0a1b",
+  "task": {
+    "external_ref": {
+      "system": "fixture",
+      "id": "T-REV-1"
+    }
+  },
+  "deliveries": [
+    {
+      "delivery_id": "20261021T155816-worker-70fedb472c15c6fe",
+      "version": "v1",
+      "previous_version": null,
+      "artifacts": [
+        {
+          "role": "deliverable",
+          "name": "report-v1.md",
+          "sha256": "7c35ae671ad15dca82c2d8d1308976bd589b605a1f4691a11335cf9f05218de4",
+          "bytes": 10
+        }
+      ],
+      "submitted_at": "2026-10-21T15:58:16+08:00",
+      "sender": "worker",
+      "ledger_seq": 4,
+      "envelope_id": "20261021T155816-worker-70fedb472c15c6fe",
+      "envelope_path": "originals/envelopes/20261021T155816-worker-70fedb472c15c6fe.json",
+      "envelope_sha256": "e579c1b959e9919c725cd56937a9532a06d6989b43fc3874f3dc701407a16076"
+    },
+    {
+      "delivery_id": "20261021T155816-worker-70fedb472c15c6fe",
+      "version": "v2",
+      "previous_version": "v1",
+      "artifacts": [
+        {
+          "role": "deliverable",
+          "name": "report-v2.md",
+          "sha256": "c9259e0bed93e50926d0011d8cf989cfb0434f7077d9ef4cf975405be22d9844",
+          "bytes": 17
+        }
+      ],
+      "submitted_at": "2026-10-21T15:58:16+08:00",
+      "sender": "worker",
+      "ledger_seq": 7,
+      "envelope_id": "20261021T155816-worker-d81f303392aca5f7",
+      "envelope_path": "originals/envelopes/20261021T155816-worker-d81f303392aca5f7.json",
+      "envelope_sha256": "4c22bf4c0bc0b1a8178f4b86618eb2256c0ccced72a2736fab93cac3b9012d68"
+    }
+  ],
+  "acceptances": [
+    {
+      "acceptance_id": "acc-20261021T155816-worker-70fedb472c15c6fe",
+      "delivery_id": "20261021T155816-worker-70fedb472c15c6fe",
+      "version": "v1",
+      "artifacts_sha256": [
+        "7c35ae671ad15dca82c2d8d1308976bd589b605a1f4691a11335cf9f05218de4"
+      ],
+      "decision": "rejected",
+      "reason": "missing tests",
+      "requires_anchoring": false,
+      "actor": "client",
+      "signed_at": "2026-10-21T15:58:16+08:00",
+      "ledger_seq": 5,
+      "record_path": "originals/acceptances/acc-20261021T155816-worker-70fedb472c15c6fe.json",
+      "record_sha256": "afb02ccff669ab5ead89ea12a0d5356d3d41b0e9fdc4a4948e8aa084ff19b4a5"
+    },
+    {
+      "acceptance_id": "acc-20261021T155816-worker-d81f303392aca5f7",
+      "delivery_id": "20261021T155816-worker-70fedb472c15c6fe",
+      "version": "v2",
+      "artifacts_sha256": [
+        "c9259e0bed93e50926d0011d8cf989cfb0434f7077d9ef4cf975405be22d9844"
+      ],
+      "decision": "accepted",
+      "reason": "",
+      "requires_anchoring": false,
+      "actor": "client",
+      "signed_at": "2026-10-21T15:58:16+08:00",
+      "ledger_seq": 8,
+      "record_path": "originals/acceptances/acc-20261021T155816-worker-d81f303392aca5f7.json",
+      "record_sha256": "6614761f19845c8643117beb66eff49cafd3c3ecd6b1a8f4e80451e4d76e6bd3"
+    }
+  ],
+  "identity": {
+    "actors": [
+      {
+        "actor": "client",
+        "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+        "fingerprint": "sha256:1325b850c2871916",
+        "registered_seq": 1
+      },
+      {
+        "actor": "worker",
+        "pub": "34b4d9043156cb6dcf0beb0a2949b7559c940d2bcb6dbe8c53a9b30278e3a746",
+        "fingerprint": "sha256:f7b7676c94df7e8f",
+        "registered_seq": 2
+      }
+    ],
+    "history": [
+      {
+        "kind": "register",
+        "actor": "client",
+        "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+        "ledger_seq": 1,
+        "digest": "1b1fd64a58dedd5924da8294bc79be8cec37c037078ca36dc251bb95324d0961"
+      },
+      {
+        "kind": "register",
+        "actor": "worker",
+        "pub": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+        "ledger_seq": 2,
+        "digest": "52333d9a82a8e5fbe7a399574f8bc0abf198a37fbf2e766a170afc62e6ddbfff"
+      },
+      {
+        "kind": "rotate",
+        "actor": "worker",
+        "old_pub": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+        "new_pub": "34b4d9043156cb6dcf0beb0a2949b7559c940d2bcb6dbe8c53a9b30278e3a746",
+        "reason": "routine rotation",
+        "ledger_seq": 6,
+        "digest": "bab9c679bacc3003d4213a5b0b384cb3d20922aee182745bcd6457447eca7130"
+      }
+    ],
+    "status": {
+      "path": "originals/status.json",
+      "sha256": "c1cd91904d7a595fc3b2935cd9e38824506ed9764e7649ce37230452c8f5dac6",
+      "publisher_pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+      "published_at": "2026-10-21T12:00:00+08:00",
+      "valid_until": "2099-01-01T00:00:00+08:00",
+      "revocations": []
+    }
+  },
+  "ledger": {
+    "path": "originals/ledger.jsonl",
+    "sha256": "5f46a5643d8c9bc2dea80230c3512e13f4a96538b8c38a079314428a19ee536b",
+    "base": "genesis",
+    "tip_seq": 8,
+    "tip_digest": "47042b8b76f60b3d37ed3f80d5c356d9501488ae711939ed893e69b657e617f6"
+  },
+  "envelopes": [
+    {
+      "id": "20261021T155816-worker-70fedb472c15c6fe",
+      "path": "originals/envelopes/20261021T155816-worker-70fedb472c15c6fe.json",
+      "sha256": "e579c1b959e9919c725cd56937a9532a06d6989b43fc3874f3dc701407a16076"
+    },
+    {
+      "id": "20261021T155816-worker-d81f303392aca5f7",
+      "path": "originals/envelopes/20261021T155816-worker-d81f303392aca5f7.json",
+      "sha256": "4c22bf4c0bc0b1a8178f4b86618eb2256c0ccced72a2736fab93cac3b9012d68"
+    },
+    {
+      "id": "20261021T155816-client-11cb26730bef6cc3",
+      "path": "originals/envelopes/20261021T155816-client-11cb26730bef6cc3.json",
+      "sha256": "2640267400e39177b167013e7258486fe21ed7bef3607409eed555e6c00bf77c"
+    }
+  ],
+  "anchors": [
+    {
+      "path": "originals/receipts/0.json",
+      "sha256": "f2b89455f7aa169366c65d0f5ee087e3b1b04fbe4b55269406f064a2e03adf94",
+      "service_pub": "17cb79fb2b4120f2b1ec65e4198d6e08b28e813feb01e4a400839b85e18080ce",
+      "covers_seq": 8,
+      "covers_digest": "47042b8b76f60b3d37ed3f80d5c356d9501488ae711939ed893e69b657e617f6",
+      "log_index": 0,
+      "received_at": "2026-10-21T12:00:00+08:00"
+    }
+  ],
+  "coverage": {
+    "expected_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "recorded_events": [
+      "send",
+      "deliver",
+      "deliver",
+      "accept"
+    ],
+    "gaps": []
+  },
+  "content_mode": "hashes_only",
+  "limits": [
+    "附件内容未包含在包内，内容复核未执行",
+    "离线无法确认是否为最新历史",
+    "未锚定尾部回滚不可发现"
+  ],
+  "signed_files": [
+    {
+      "path": "originals/ledger.jsonl",
+      "sha256": "5f46a5643d8c9bc2dea80230c3512e13f4a96538b8c38a079314428a19ee536b"
+    },
+    {
+      "path": "originals/status.json",
+      "sha256": "c1cd91904d7a595fc3b2935cd9e38824506ed9764e7649ce37230452c8f5dac6"
+    },
+    {
+      "path": "originals/envelopes/20261021T155816-worker-70fedb472c15c6fe.json",
+      "sha256": "e579c1b959e9919c725cd56937a9532a06d6989b43fc3874f3dc701407a16076"
+    },
+    {
+      "path": "originals/envelopes/20261021T155816-worker-d81f303392aca5f7.json",
+      "sha256": "4c22bf4c0bc0b1a8178f4b86618eb2256c0ccced72a2736fab93cac3b9012d68"
+    },
+    {
+      "path": "originals/envelopes/20261021T155816-client-11cb26730bef6cc3.json",
+      "sha256": "2640267400e39177b167013e7258486fe21ed7bef3607409eed555e6c00bf77c"
+    },
+    {
+      "path": "originals/acceptances/acc-20261021T155816-worker-70fedb472c15c6fe.json",
+      "sha256": "afb02ccff669ab5ead89ea12a0d5356d3d41b0e9fdc4a4948e8aa084ff19b4a5"
+    },
+    {
+      "path": "originals/acceptances/acc-20261021T155816-worker-d81f303392aca5f7.json",
+      "sha256": "6614761f19845c8643117beb66eff49cafd3c3ecd6b1a8f4e80451e4d76e6bd3"
+    },
+    {
+      "path": "originals/receipts/0.json",
+      "sha256": "f2b89455f7aa169366c65d0f5ee087e3b1b04fbe4b55269406f064a2e03adf94"
+    }
+  ],
+  "signatures": {
+    "exporter": {
+      "alg": "ed25519",
+      "pub": "c6822637c7d310ec57627be00ba259d253749f4aaf644470cffbe53a35f73242",
+      "sig": "d134f70dc4c0ab9d81f034d75aabf261984cc8e20bbfbc2dadf00c9a25b3553ab4fb9d3043341462a674df12f5db9ccbbd306baa5107f8eda961f2058c288d0f"
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "pack_version": "agentbridge-evidence/0.1",
+  "created_at": "2026-10-21T12:00:05+08:00",
+  "as_of": {
+    "key_status": "2026-10-21T11:00:00+08:00",
+    "anchors": "2026-10-21T12:00:04+08:00"
+  },
+  "bridge_id": "br-123d848ffde8c4c4",
+  "task": {
+    "external_ref": {
+      "system": "fixture",
+      "id": "TASK-1"
+    },
+    "title": "fixture"
+  },
+  "deliveries": [
+    {
+      "delivery_id": "dlv-1",
+      "version": "v1",
+      "previous_version": null,
+      "artifacts": [
+        {
+          "role": "deliverable",
+          "name": "report.pdf",
+          "sha256": "f92e7ed380942e9d829f1aeac564a19a334fa1aa02e329d04c589521f6a96d18",
+          "bytes": 19
+        },
+        {
+          "role": "deliverable",
+          "name": "module.py",
+          "sha256": "caf026f25d7140209f98072605307a438914b9ce6f3c14b23d15d9667241de52",
+          "bytes": 13
+        }
+      ],
+      "submitted_at": "2026-10-21T12:00:02+08:00",
+      "sender": "worker",
+      "ledger_seq": 4,
+      "envelope_id": "env-deliver",
+      "envelope_path": "originals/envelopes/env-deliver.json",
+      "envelope_sha256": "b9aeb666f919727578d4bff592549aec3bce2dee034aa995746825ead598d8c4"
+    }
+  ],
+  "acceptances": [
+    {
+      "acceptance_id": "acc-1",
+      "delivery_id": "dlv-1",
+      "version": "v1",
+      "artifacts_sha256": [
+        "caf026f25d7140209f98072605307a438914b9ce6f3c14b23d15d9667241de52",
+        "f92e7ed380942e9d829f1aeac564a19a334fa1aa02e329d04c589521f6a96d18"
+      ],
+      "decision": "accepted",
+      "reason": "",
+      "requires_anchoring": true,
+      "actor": "client",
+      "signed_at": "2026-10-21T12:00:03+08:00",
+      "ledger_seq": 5,
+      "record_path": "originals/acceptances/acc-1.json",
+      "record_sha256": "29bcf05548af4966eaf856b78edacc72b4e92b668c7c0c6fb4361c88dcd711c2"
+    }
+  ],
+  "identity": {
+    "actors": [
+      {
+        "actor": "worker",
+        "pub": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+        "fingerprint": "sha256:10ba682c8ad13513",
+        "registered_seq": 1
+      },
+      {
+        "actor": "client",
+        "pub": "a09aa5f47a6759802ff955f8dc2d2a14a5c99d23be97f864127ff9383455a4f0",
+        "fingerprint": "sha256:1325b850c2871916",
+        "registered_seq": 2
+      }
+    ],
+    "status": {
+      "path": "originals/status.json",
+      "sha256": "94887b3ef734eca3affcca38e9e14733172819bd88d4955a62ff56c243742329",
+      "publisher_pub": "d759793bbc13a2819a827c76adb6fba8a49aee007f49f2d0992d99b825ad2c48",
+      "published_at": "2026-10-21T11:00:00+08:00",
+      "valid_until": "2026-10-22T11:00:00+08:00",
+      "revocations": []
+    }
+  },
+  "ledger": {
+    "path": "originals/ledger.jsonl",
+    "sha256": "cd9b3c937fb4cc35755926b65c8f9be4e4f47393e1dc13ea9f3b9403f7d57ea8",
+    "base": "genesis",
+    "tip_seq": 5,
+    "tip_digest": "8b6f51b520a831554501bde80955614393ffdc4aec596b2ab092d6fc046d3a4e"
+  },
+  "envelopes": [
+    {
+      "id": "env-send",
+      "path": "originals/envelopes/env-send.json",
+      "sha256": "4e6e6ff30a9b5bcb28eeb30f2b9d2a8efd4dd9d2b43d6cec7d9483aed0f32c80"
+    },
+    {
+      "id": "env-deliver",
+      "path": "originals/envelopes/env-deliver.json",
+      "sha256": "b9aeb666f919727578d4bff592549aec3bce2dee034aa995746825ead598d8c4"
+    }
+  ],
+  "anchors": [],
+  "coverage": {
+    "expected_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "recorded_events": [
+      "send",
+      "deliver",
+      "accept"
+    ],
+    "gaps": []
+  },
+  "content_mode": "hashes_only",
+  "limits": [
+    "附件内容未包含在包内，内容复核未执行",
+    "离线无法确认是否为最新历史",
+    "未锚定尾部回滚不可发现"
+  ],
+  "signed_files": [
+    {
+      "path": "originals/ledger.jsonl",
+      "sha256": "cd9b3c937fb4cc35755926b65c8f9be4e4f47393e1dc13ea9f3b9403f7d57ea8"
+    },
+    {
+      "path": "originals/envelopes/env-send.json",
+      "sha256": "4e6e6ff30a9b5bcb28eeb30f2b9d2a8efd4dd9d2b43d6cec7d9483aed0f32c80"
+    },
+    {
+      "path": "originals/envelopes/env-deliver.json",
+      "sha256": "b9aeb666f919727578d4bff592549aec3bce2dee034aa995746825ead598d8c4"
+    },
+    {
+      "path": "originals/acceptances/acc-1.json",
+      "sha256": "29bcf05548af4966eaf856b78edacc72b4e92b668c7c0c6fb4361c88dcd711c2"
+    },
+    {
+      "path": "originals/status.json",
+      "sha256": "94887b3ef734eca3affcca38e9e14733172819bd88d4955a62ff56c243742329"
+    }
+  ],
+  "signatures": {
+    "exporter": {
+      "alg": "ed25519",
+      "pub": "c6822637c7d310ec57627be00ba259d253749f4aaf644470cffbe53a35f73242",
+      "sig": "4eefd3adbce20c44df9f4307be3284b0d363273926132508cda3d8c4ed6a1d775826564d80adde10c6c3ed56858838b3ed69a002e2c6eb44a24b4ca516e6040d"
+    }
+  }
+}

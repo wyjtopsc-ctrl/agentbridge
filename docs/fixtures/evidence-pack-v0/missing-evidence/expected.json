@@ -1,0 +1,19 @@
+{
+  "axes": {
+    "integrity": "pass",
+    "identity": "pass",
+    "acceptance": "fail",
+    "coverage": "pass",
+    "anchoring": "unknown",
+    "content": "not_executed"
+  },
+  "exit_code": 1,
+  "codes": [
+    "E-ANCHOR-MISSING",
+    "E-ACC-REQUIRES-ANCHOR"
+  ],
+  "checks": {
+    "acceptance.anchoring_requirement": "fail",
+    "anchoring.coverage": "unknown"
+  }
+}
