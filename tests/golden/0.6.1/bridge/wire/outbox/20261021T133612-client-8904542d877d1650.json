@@ -1,0 +1,27 @@
+{
+  "v": 2,
+  "id": "20261021T133612-client-8904542d877d1650",
+  "from": "client",
+  "to": "worker",
+  "intent": "message",
+  "in_reply_to": null,
+  "created_at": "2026-10-21T13:36:12+08:00",
+  "body": "please review",
+  "artifacts": [
+    {
+      "role": "target",
+      "path": "/tmp/g061/req.txt",
+      "rel": "../req.txt",
+      "sha256": "e13cf8eae73678aa7f69b252cef4a9019c8f000c9d32b65f366f603691951ae9",
+      "bytes": 13,
+      "stored_as": "wire/artifacts/e13cf8eae73678aa7f69b252cef4a9019c8f000c9d32b65f366f603691951ae9",
+      "recorded_at": "2026-10-21T13:36:12+08:00"
+    }
+  ],
+  "reply_box": "wire/inbox",
+  "signature": {
+    "alg": "ed25519",
+    "pub": "4596685fa9f83b60fe92d7b674f50c79a5b5c3efadfafb50e161ed6d6070ba13",
+    "sig": "58d11430074ebf1e16441e4c10ad3fa5ec00b17544ac6042f74b419c7ee33f070a2a1d25f4b8045324d8da6f0b7b922c87376d0bf6f8edf12f822cac3dd43905"
+  }
+}
