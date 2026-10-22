@@ -1,38 +1,54 @@
 # agentbridge
 
-**Agent 协作的交付证据层。** 一个零运行时依赖的 Python 库 + CLI：让两个 Agent（或代表它们的两个进程）
-交换工作，并在事后向第三方证明「哪一版交给了谁、对方验收了没有、记录有没有被改过」。
+**The delivery-evidence layer for Agent collaboration.** A zero-dependency Python library + CLI that lets two agents (or two processes acting for them) exchange work, then prove to a third party **which version was delivered to whom, whether it was accepted, and whether the record was altered**.
 
-- 没有共识链、没有代币：哈希链账本 + 内容寻址附件 + 一个由人保管在机器之外的锚点。
-- 不做裁判：不判断交付质量、不裁决谁对谁错，只把「承诺—交付—验收」固定成可核验的事实。
-- 当前版本 **0.9.3**；证据包协议 **v0.2（技术冻结）**。
+[![CI](https://github.com/wyjtopsc-ctrl/agentbridge/actions/workflows/ci.yml/badge.svg)](https://github.com/wyjtopsc-ctrl/agentbridge/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](pyproject.toml)
 
-> 边界说明：产品是 pre-1.0 组件，不是安全认证产品。当前只有本地 CI 证据，没有第三方审计，
-> 也没有客户付费验证。默认 `hashes_only`：只核验摘要与签署记录，**不复核附件内容**。
+[English](README.md) | [中文](README.zh-CN.md)
 
-## 能力
+![example verification output](docs/assets/terminal-demo.svg)
 
-| 能力 | 说明 |
+> Status: **0.9.3**, pre-1.0, evidence-pack **v0.2 (technical freeze)**. Local CI only; no third-party
+> audit, no customer payment validation, and not a security certification. Default `hashes_only`:
+> the verifier checks delivery digests and signing records, **not file contents**.
+
+## Why
+
+When AI agents hand work to each other, the hard part is not making them talk. It is proving
+afterwards what actually happened: which version was delivered, what the receiver accepted, and
+whether the record was quietly edited. Logs can be rewritten, chat can be redacted, and the
+platform is often a party to the transaction.
+
+agentbridge does not try to be the authority. It gives both sides a shared, tamper-evident record
+and gives the **human** an anchor to hold outside the machine. It does not adjudicate quality or
+blame; it fixes “promise → delivery → acceptance” into verifiable facts and states what it cannot
+prove.
+
+## What it gives you
+
+| Capability | What it provides |
 |---|---|
-| 哈希链账本 | `seq/prev/digest` 连续；中间改行与尾截断可发现；追加失败关闭 |
-| 信封与工件 | 请求/交付正文签名；附件按 sha256 内容寻址存储 |
-| 身份 | Ed25519、actor 注册、密钥轮换/撤销、按记录选择当时有效钥 |
-| 交付与验收 | 逻辑交付 + 版本 + 修订关系；验收绑定版本与工件哈希集合 |
-| 证据包 v0.2 | 账本切片、信封、验收、密钥历史、外部回执逐字节保留；manifest 签名 |
-| 离线核验 | 六轴：完整性 / 身份 / 验收 / 覆盖 / 锚定 / 内容；输出原因码与披露 |
-| 接入 | CLI、Python API、MCP stdio、HTTP 单写序列器、托管锚点 |
+| Hash-chained ledger | `seq/prev/digest` continuity; mid-chain edits and tail truncation are detectable; appends fail closed |
+| Envelopes & artifacts | signed requests/deliveries; attachments stored by sha256 and verified against the stored copy |
+| Identity | Ed25519, actor registry, key rotation/revocation, per-record key selection from the ledger timeline |
+| Delivery & acceptance | logical delivery + version + revision chain; acceptance binds version and artifact hash set |
+| Evidence pack v0.2 | verbatim ledger slice, envelopes, acceptances, key history and anchor receipts; signed manifest |
+| Offline verifier | six axes: integrity / identity / acceptance / coverage / anchoring / content; reason codes and disclosure |
+| Integrations | CLI, Python API, MCP stdio, HTTP single-writer sequencer, hosted anchor service |
 
-## 安装
+## Install
 
 ```console
 python3 -m venv .venv && . .venv/bin/activate
-pip install -e .            # 源码；零运行时依赖
+pip install -e .            # from source; no runtime dependencies
 agentbridge --help
 ```
 
-Python 3.9+，POSIX（依赖 `fcntl`）。也可从发行包安装 wheel。
+Python 3.9+, POSIX (uses `fcntl`). Wheels/sdists are attached to GitHub releases.
 
-## 快速开始
+## Quick start
 
 ```console
 $ mkdir -p keys shared
@@ -43,23 +59,25 @@ $ agentbridge --root shared --key keys/client.key register
 $ agentbridge --root shared --key keys/worker.key register
 
 $ agentbridge --root shared --key keys/client.key \
-    send --to worker --intent review --body "复核这个模块" --attach ./module.py
+    send --to worker --intent review --body "review this module" --attach ./module.py
 $ agentbridge --root shared --key keys/worker.key \
-    deliver --to client --in-reply-to <id> --body "交付 v1" --attach ./findings.md
+    deliver --to client --in-reply-to <id> --body "delivered v1" --attach ./findings.md
 ```
 
-验收记录目前通过 Python API 写入：
+Acceptance is currently recorded through the Python API:
 
 ```python
 from agentbridge import Bridge
+
 b = Bridge("shared")
 b.accept_delivery("client", "<delivery envelope id>", version="v1",
                   decision="accepted", reason="")
 ```
 
-修订与再验收：`deliver --version v2 --revises <v1 id>`，然后对新版本重新 `accept_delivery`。
+Revision + re-acceptance: `deliver --version v2 --revises <v1 id>`, then accept v2 separately.
+Accepting v1 never implies accepting v2.
 
-## 证据包：导出与离线核验
+## Evidence pack: export and verify offline
 
 ```console
 $ agentbridge --root shared --key keys/exporter.key \
@@ -70,42 +88,54 @@ $ agentbridge --root shared --key keys/exporter.key \
 $ agentbridge evidence verify --pack ./pack --trust ./trust.json
 ```
 
-输出六轴状态、原因码与 `disclosure`（例如：`hashes_only` 未复核文件内容）。信任文件必须在包外，
-由接收方独立确认；退出码 0/1/2/3 分别表示全通过、有失败、有未知/未执行、协议错误。
+The verifier prints six axes, reason codes and a `disclosure` line (e.g. content was not reviewed
+in `hashes_only` mode). The trust file must live outside the pack and be independently confirmed by
+the receiver. Exit codes: `0` all pass, `1` any fail, `2` unknown/not-executed, `3` protocol error.
 
-## 设计要点
+## Design in thirty seconds
 
-- **信封**：`wire/outbox`（请求）/ `wire/inbox`（交付），含签名与附件清单。
-- **工件库**：附件复制到 `wire/artifacts/<sha256>`；核验针对副本，原路径变化只显示 `drifted`。
-- **账本**：`ledger.jsonl` 追加式哈希链；`wire/head.json` 记录 tip，追加 fail-closed。
-- **外部锚点**：`anchor` 输出 `(seq, digest)`，由人抄到机器之外；这是对抗「账本 + head 一起被改」的唯一手段。
-- **密钥时间线**：register/rotate/revoke 绑定账本序号与摘要；已撤销密钥不能继续授权轮换。
-- **修订**：同一 `delivery_id` 可多版本；旧版本被标记 superseded，但签名与绑定仍全量核验。
+- **Envelope** — one JSON file per message in `wire/outbox` (requests) or `wire/inbox` (deliveries),
+  carrying signatures and an artifact list.
+- **Artifact store** — every attachment is copied to `wire/artifacts/<sha256>`; verification runs
+  against that copy, so editing the original only shows up as `drifted`.
+- **Ledger** — `ledger.jsonl`, append-only hash chain; `wire/head.json` holds the tip and appends are
+  fail-closed if the tip does not match.
+- **External anchor** — `agentbridge anchor` prints `(seq, digest)` for a human to keep off-machine;
+  this is the only defence against a coordinated rewrite of ledger + head.
+- **Key timeline** — register/rotate/revoke events are bound to ledger positions and digests;
+  a revoked key cannot authorize another rotation.
+- **Revisions** — one `delivery_id` can have multiple versions; superseded versions are flagged,
+  but their signatures and bindings are still fully verified.
 
-## 测试
+## Tests
 
 ```console
-make ci     # 9 套测试 + 协议矩阵 + 重建 + schema + fuzz + 独立交叉验证
+make ci     # 9 suites + protocol matrix + rebuild determinism + schema + fuzz + independent crosscheck
 ```
 
-依赖：Node + Ajv（schema 校验）、Python `cryptography`（独立交叉验证）；缺失时对应步骤 SKIP，不冒充 PASS。
-当前本地结果：产品测试 109/109、冻结矩阵 17/17、独立交叉验证 11/11、fuzz 300/300。
+Schema validation needs Node + Ajv (`npm install --prefix tools`); the independent crypto
+crosscheck needs Python `cryptography`. Missing tools are reported as SKIP, never PASS.
 
-## 已知限制
+Current local results: 109/109 product tests, 17/17 protocol matrix, 11/11 independent crosscheck,
+300/300 malformed-pack fuzz, 101/101 byte-identical rebuild.
 
-- `hashes_only`：不复核附件内容；签名有效不代表内容正确。
-- K3 紧急恢复未实现：密钥丢失/泄露按人工流程停止与重新接入。
-- 未锚定的尾部整体回滚不可发现；离线不能自行确认「最新全部历史」。
-- 导出对账本加共享锁阻塞写入，但崩溃、磁盘满、跨机复制未覆盖。
-- 多任务批量导出、项目隔离、保留与加密未实现。
+## Known limits
 
-## 文档
+- `hashes_only`: file contents are not reviewed; a valid signature does not mean correct content.
+- K3 emergency recovery is not implemented; key loss/compromise uses a documented manual process.
+- An unanchored tail rollback is undetectable by design; offline verification cannot confirm
+  “latest full history”.
+- Export takes a shared ledger lock and blocks writers, but crashes, full disks and cross-host
+  replication are not covered.
+- Multi-task batch export, project isolation, retention and encryption are not implemented.
 
-- [协议](docs/protocol.md) · [威胁模型](docs/threat-model.md) · [MCP](docs/mcp.md)
-- [证据包 v0.2 协议](docs/evidence-pack-v0.2.md) · [schema](docs/evidence-pack-v0.2.schema.json)
-- [冻结记录](docs/freeze-record-2026-10-21.md) · [版本更迭](docs/version-history.md)
-- 白皮书/手册/版本记录：`docs/exports/`（公开快照）或 `deliverables/`（开发工作区）
+## Documentation
+
+- [Protocol](docs/protocol.md) · [Threat model](docs/threat-model.md) · [MCP](docs/mcp.md)
+- [Evidence-pack v0.2](docs/evidence-pack-v0.2.md) · [schema](docs/evidence-pack-v0.2.schema.json)
+- [Freeze record](docs/freeze-record-2026-10-21.md) · [Version history](docs/version-history.md)
+- Whitepaper / manual / version history PDFs: `docs/exports/`
 
 ## License
 
-MIT，见 [LICENSE](LICENSE)。
+MIT — see [LICENSE](LICENSE). Copyright (c) 2026 Yongjie Wang (王永杰, carlwang).
