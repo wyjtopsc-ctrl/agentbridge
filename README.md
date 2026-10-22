@@ -131,6 +131,10 @@ Current local results: 109/109 product tests, 17/17 protocol matrix, 11/11 indep
 
 ## Documentation
 
+- [Tutorials](docs/tutorials/README.md): MCP, LangGraph, CrewAI
+- [2-minute dispute demo](demo/DEMO.md): reject → revise → accept → verify → tamper
+- [Launch kit](docs/launch/README.md): Show HN / Reddit / V2EX / X copy
+
 - [Protocol](docs/protocol.md) · [Threat model](docs/threat-model.md) · [MCP](docs/mcp.md)
 - [Evidence-pack v0.2](docs/evidence-pack-v0.2.md) · [schema](docs/evidence-pack-v0.2.schema.json)
 - [Freeze record](docs/freeze-record-2026-10-21.md) · [Version history](docs/version-history.md)
