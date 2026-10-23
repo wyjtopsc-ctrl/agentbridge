@@ -118,7 +118,7 @@ make ci     # 9 suites + protocol matrix + rebuild determinism + schema + fuzz +
 Schema validation needs Node + Ajv (`npm install --prefix tools`); the independent crypto
 crosscheck needs Python `cryptography`. Missing tools are reported as SKIP, never PASS.
 
-Current local results: 109/109 product tests, 17/17 protocol matrix, 11/11 independent crosscheck,
+Current local results: 111/111 product tests, 17/17 protocol matrix, 11/11 independent crosscheck,
 300/300 malformed-pack fuzz, 101/101 byte-identical rebuild.
 
 ## Known limits

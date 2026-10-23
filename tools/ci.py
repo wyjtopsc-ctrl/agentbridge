@@ -3,7 +3,8 @@
 
   python3 tools/ci.py [--fast]
 
-Missing optional toolchains (node+ajv, python+cryptography) are reported as SKIP, never PASS.
+Missing optional toolchains (node+ajv, python+cryptography) are reported as SKIP, never PASS;
+PASS counts only checks that actually executed. The summary reports PASS/FAIL/SKIP separately.
 """
 from __future__ import annotations
 
@@ -95,10 +96,13 @@ def main() -> int:
     else:
         record("independent crosscheck", "SKIP", "python with cryptography not found")
 
+    passed = [name for name, status, _ in results if status == "PASS"]
     failed = [name for name, status, _ in results if status == "FAIL"]
     skipped = [name for name, status, _ in results if status == "SKIP"]
-    print(f"\n{len(results) - len(failed)}/{len(results)} checks passed"
-          + (f", {len(skipped)} skipped" if skipped else ""))
+    executed = len(results) - len(skipped)
+    print(f"\nPASS {len(passed)}/{executed} executed checks, FAIL {len(failed)}, SKIP {len(skipped)}")
+    if skipped:
+        print("skipped (not counted as passed): " + ", ".join(skipped))
     return 1 if failed else 0
 
 

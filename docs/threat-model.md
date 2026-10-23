@@ -3,11 +3,23 @@
 Stated plainly, because a provenance tool that over-claims is worse than no tool. This document is
 deliberately pessimistic.
 
+> **Current status (0.9.3, 2026-10-23).** This document began as the 0.1 local-filesystem model.
+> The historical paragraphs below are kept for traceability; current capabilities include signed
+> envelopes, an HTTP single-writer sequencer, Ed25519 identities, key rotation/revocation, evidence
+> packs and external anchors. The “no network transport / rotation out of scope” wording describes
+> 0.1, not 0.9.3. K3 emergency recovery is still not implemented.
+
 ## Deployment assumption
 
-Two agents (or two processes) run **as the same OS user** on **the same machine**, sharing a
-directory. There is no network transport in 0.1. Anything written below follows from that
-assumption; a different deployment needs a different model.
+Two supported shapes:
+
+1. **Local shared filesystem** — two agents (or two processes) run as the same OS user on the same
+   machine. No network; the original 0.1 model.
+2. **HTTP sequencer** — one single-writer service, signed requests, no TLS in the service itself;
+   deploy behind a reverse proxy. Replay protection uses timestamp + nonce cache (see P0 note below).
+
+Identity is optional for local use and required for network use: actor registry, Ed25519 signatures,
+ledger-level key rotation/revocation. Certificate authorities / cross-org PKI are not implemented.
 
 ## What an attacker can do
 
@@ -35,12 +47,12 @@ change a digest that is held outside the filesystem.
 | Sign as another actor (no keys configured) | No — trivially | `--actor` is a label, not a signature |
 | Sign as another actor (keys registered) | No, unless the key file is readable | entries and envelopes are Ed25519-signed and checked against the registry |
 | Rewrite a signed entry | Yes | digest changes, signature no longer verifies |
-| Re-register an actor with a new key | Yes | reported as a conflict; rotation needs a succession chain that does not exist yet |
+| Re-register an actor with a new key | Yes | reported as a conflict; ledger-level rotation/revocation exists in 0.9.3, K3 recovery does not |
 | Compromise the OS user | No | game over by assumption |
 | Rewrite ledger + head together | **Yes, if a receipt is held** | a service-signed receipt pins (seq, digest) off-machine |
 | Anchor service issues a false receipt | Partly | receipts are service-signed and client-bound; collusion is possible but a held receipt cannot be altered |
 | Anchor service withholds | No | availability only; already-issued receipts stay valid |
-| Replay a captured HTTP request | Yes (network mode) | signed timestamp window + nonce cache |
+| Replay a captured HTTP request | Yes (network mode) | signed timestamp window + in-memory nonce cache; a restart window is a known P0 gap |
 | Tamper with a request in flight | Yes (network mode) | request signature covers method, path, body hash |
 | Compromised sequencer forges authorship | No | the server holds no keys; entries and envelopes are client-signed |
 | Compromised sequencer reorders or withholds | No | it is the single writer; detect via gaps/anchor |
@@ -51,7 +63,7 @@ change a digest that is held outside the filesystem.
 - **Identity, by default.** Without keys, `from: hermes` proves only that the string was written by
   someone with write access. With keys, signatures prove *key possession* — not key custody. A key
   file stored in the shared directory is readable by every participant, so key files must live
-  outside it. Certificate authorities, key rotation, and revocation are out of scope.
+  outside it. Certificate authorities / cross-org PKI and K3 emergency recovery are out of scope; ledger-level rotation and revocation are implemented.
 - **Truth.** The ledger records what was said and what bytes were exchanged. It cannot verify that
   the content is correct, honest, or produced by the claimed process.
 - **Adjudication.** Nothing here decides who is right. `commit` records a promise, not its

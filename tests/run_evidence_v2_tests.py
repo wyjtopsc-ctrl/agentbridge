@@ -253,6 +253,18 @@ def V11_rotation_after_compromise_does_not_restore_trust():
 
 
 @case
+def V13_timestamp_comparison_is_timezone_aware():
+    # Same instant, different offsets: 04:00Z == 12:00+08:00.
+    assert evidence.ts_at_or_after("2026-10-21T04:00:00Z", "2026-10-21T12:00:00+08:00") is True
+    assert evidence.ts_at_or_after("2026-10-21T03:59:59Z", "2026-10-21T12:00:00+08:00") is False
+    assert evidence.ts_at_or_after("2026-10-21T12:00:00+08:00", "2026-10-21T04:00:00Z") is True
+    # Missing/invalid values must not be treated as "before".
+    assert evidence.ts_at_or_after(None, "2026-10-21T12:00:00+08:00") is None
+    assert evidence.ts_at_or_after("not-a-time", "2026-10-21T12:00:00+08:00") is None
+    assert evidence.ts_at_or_after("2026-10-21T12:00:00+08:00", None) is None
+
+
+@case
 def V12_concurrent_export_uses_a_consistent_snapshot():
     import threading
     sc = build_flow()

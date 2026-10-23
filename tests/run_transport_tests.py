@@ -59,6 +59,9 @@ class Fixture:
         run(self.root, "init", "--actor", "planner")
         run(self.root, "register", key=self.key("planner"))
         run(self.root, "register", key=self.key("worker"))
+        self._start()
+
+    def _start(self):
         env = dict(os.environ, PYTHONPATH=SRC)
         self.proc = subprocess.Popen(
             [sys.executable, "-m", "agentbridge", "--root", self.root, "serve",
@@ -71,6 +74,10 @@ class Fixture:
         self.planner = HttpBridge(self.url, signing.load_keyfile(self.key("planner")))
         self.worker = HttpBridge(self.url, signing.load_keyfile(self.key("worker")))
         self.mallory = HttpBridge(self.url, signing.load_keyfile(self.key("mallory")))
+
+    def restart(self):
+        self.close()
+        self._start()
 
     def key(self, actor):
         return os.path.join(self.dir, f"{actor}.key")
@@ -156,6 +163,22 @@ def T4_replayed_request_is_rejected():
         headers = sign_headers(signer, "GET", path, b"")
         first_status, first = raw("GET", f.url, path, headers=headers)
         assert first_status == 200, first
+        second_status, second = raw("GET", f.url, path, headers=headers)
+        assert second_status >= 400 and "replay" in second.get("message", ""), second
+    finally:
+        f.close()
+
+
+@case
+def T12_replay_is_rejected_after_restart():
+    f = Fixture()
+    try:
+        signer = signing.load_keyfile(f.key("planner"))
+        path = "/api/head"
+        headers = sign_headers(signer, "GET", path, b"")
+        first_status, first = raw("GET", f.url, path, headers=headers)
+        assert first_status == 200, first
+        f.restart()
         second_status, second = raw("GET", f.url, path, headers=headers)
         assert second_status >= 400 and "replay" in second.get("message", ""), second
     finally:

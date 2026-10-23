@@ -72,6 +72,27 @@ def parse_dt(value):
     return datetime.datetime.fromisoformat(value.replace("Z", "+00:00"))
 
 
+def parse_ts(value):
+    """Parse an ISO timestamp; return None for missing/invalid values."""
+    if not value:
+        return None
+    try:
+        dt = parse_dt(str(value))
+    except (TypeError, ValueError):
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=datetime.timezone.utc)
+    return dt
+
+
+def ts_at_or_after(value, boundary):
+    """Return True/False for value >= boundary; None when either side is unusable."""
+    left, right = parse_ts(value), parse_ts(boundary)
+    if left is None or right is None:
+        return None
+    return left >= right
+
+
 class Result:
     def __init__(self):
         self.axes = {a: {"status": "pass", "codes": [], "checks": {}, "details": {}} for a in AXES}
@@ -225,11 +246,14 @@ def _verify(pack_dir, trust_path):
                 kind = rev.get("kind")
                 if kind == "suspected_compromise":
                     leak = rev.get("suspected_leak_at")
-                    # unknown leak start: cannot prove the rotation came before the boundary
-                    if not leak or str(e.get("ts", "")) >= str(leak):
+                    # unknown/invalid leak start or timestamp: cannot prove the rotation came first
+                    cmp = ts_at_or_after(e.get("ts"), leak) if leak else None
+                    if cmp is None or cmp:
                         blocked = True
-                elif rev.get("effective_at") and str(e.get("ts", "")) >= str(rev["effective_at"]):
-                    blocked = True
+                elif rev.get("effective_at"):
+                    cmp = ts_at_or_after(e.get("ts"), rev["effective_at"])
+                    if cmp is None or cmp:
+                        blocked = True
             if blocked:
                 res.ck("integrity", "rotation_authorization", "fail",
                        "E-ROTATE-AFTER-COMPROMISE", seq=e.get("seq"))
@@ -531,12 +555,11 @@ def _verify(pack_dir, trust_path):
                     if kind == "revoked":
                         res.ck("identity", "revocation", "fail", "E-KEY-REVOKED", actor=rev["actor"])
                     elif kind == "suspected_compromise":
-                        leak = rev.get("suspected_leak_at")
-                        if not leak:
+                        leak_at = parse_ts(rev.get("suspected_leak_at"))
+                        if leak_at is None:
                             res.ck("identity", "revocation", "unknown",
                                    "E-KEY-COMPROMISE-START-UNKNOWN", actor=rev["actor"])
                         else:
-                            leak_at = parse_dt(leak)
                             bounded = any(seq >= 4 and when < leak_at for seq, when in trusted_bounds)
                             if bounded:
                                 res.ck("identity", "revocation", "pass")

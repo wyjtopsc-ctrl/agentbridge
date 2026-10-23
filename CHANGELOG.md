@@ -3,6 +3,14 @@
 All notable changes to `agentbridge`. Versions follow semver; the project is pre-1.0, so minor
 versions may change behaviour.
 
+## Unreleased — replay and timestamp hardening
+
+- Sequencer nonce state is persisted (`wire/sequencer-nonces.json`); restart replay is rejected
+  and corrupt/unwritable nonce state fails closed.
+- Rotation-authorization boundaries are compared as timezone-aware datetimes, not strings;
+  missing/invalid timestamps do not pass.
+- Tests: 111 (transport 12, evidence v2 13).
+
 ## 0.9.3 — leak-time semantics + export write blocking
 
 - Trusted time for a suspected compromise only bounds whether a record existed before the

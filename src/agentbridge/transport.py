@@ -282,8 +282,32 @@ class HttpBridge:
 class Sequencer:
     def __init__(self, root: str):
         self.bridge = Bridge(root)
+        self._nonce_path = os.path.join(self.bridge.wire, "sequencer-nonces.json")
         self._nonces: dict[str, float] = {}
         self._lock = threading.Lock()
+        self._load_nonces()
+
+    def _load_nonces(self) -> None:
+        """Restore replay-protection state; corrupt state fails closed at startup."""
+        if not os.path.exists(self._nonce_path):
+            return
+        try:
+            data = json.loads(open(self._nonce_path, encoding="utf-8").read())
+        except (OSError, json.JSONDecodeError) as exc:
+            raise Refused(f"nonce store is unreadable: {exc}") from exc
+        if not isinstance(data, dict) or data.get("version") != 1 or not isinstance(data.get("nonces"), dict):
+            raise Refused("nonce store has an unsupported format")
+        now_ts = time.time()
+        for nonce, expiry in data["nonces"].items():
+            if not isinstance(nonce, str) or not isinstance(expiry, (int, float)):
+                raise Refused("nonce store has an invalid entry")
+            if expiry >= now_ts:
+                self._nonces[nonce] = float(expiry)
+
+    def _persist_nonces(self) -> None:
+        os.makedirs(os.path.dirname(self._nonce_path), exist_ok=True)
+        payload = {"version": 1, "nonces": dict(sorted(self._nonces.items()))}
+        self.bridge._atomic_write(self._nonce_path, json.dumps(payload, sort_keys=True) + "\n")
 
     # -- auth --------------------------------------------------------------
 
@@ -314,6 +338,11 @@ class Sequencer:
             if nonce in self._nonces:
                 raise Refused("replayed nonce")
             self._nonces[nonce] = time.time() + CLOCK_SKEW_SECONDS * 2
+            try:
+                self._persist_nonces()
+            except Exception as exc:  # noqa: BLE001 - fail closed
+                self._nonces.pop(nonce, None)
+                raise Refused(f"nonce store is unavailable: {exc}") from exc
         return actor
 
     def _prune_nonces(self):
