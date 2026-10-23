@@ -12,7 +12,7 @@
 
 [▶ 2-minute demo video (MP4)](demo/agentbridge-demo-zh.mp4) · [storyboard + narration](demo/DEMO.md) · [narration text](demo/narration.md)
 
-> Status: **0.9.3**, pre-1.0, evidence-pack **v0.2 (technical freeze)**. Local CI only; no third-party
+> Status: **0.9.4**, pre-1.0, evidence-pack **v0.2 (technical freeze)**. Local CI only; no third-party
 > audit, no customer payment validation, and not a security certification. Default `hashes_only`:
 > the verifier checks delivery digests and signing records, **not file contents**.
 

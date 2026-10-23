@@ -27,7 +27,7 @@ from .core import (
     new_id,
 )
 
-__version__ = "0.9.3"
+__version__ = "0.9.4"
 __all__ = [
     "Bridge", "BridgeError", "NotInitialised", "BrokenLedger", "CorruptLedger",
     "Refused", "NotFound", "BadArtifact", "VerificationReport", "PollResult",

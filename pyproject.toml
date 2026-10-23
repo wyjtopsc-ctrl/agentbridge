@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "agentbridge"
-version = "0.9.3"
+version = "0.9.4"
 description = "Verifiable delivery between autonomous agents: hash-chained commitments, content-addressed artifacts, external anchors."
 readme = "README.md"
 requires-python = ">=3.9"
