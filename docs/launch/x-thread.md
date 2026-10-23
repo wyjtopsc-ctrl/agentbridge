@@ -16,4 +16,5 @@ quality is not judged; unanchored tail rollback is undetectable offline.
 MCP tools, or cross-org AI delivery.
 
 Repo: https://github.com/wyjtopsc-ctrl/agentbridge
+Demo video: https://github.com/wyjtopsc-ctrl/agentbridge/blob/main/demo/agentbridge-demo-zh.mp4
 Demo: `PYTHONPATH=src python3 demo/run_demo.py`

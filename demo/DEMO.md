@@ -21,3 +21,14 @@ $ PYTHONPATH=src python3 demo/run_demo.py
 
 Do not edit the output before recording. If a step fails, show the failure; the demo is about
 verifiability, not a perfect run.
+
+
+## Rendered files
+
+- `agentbridge-demo-zh.mp4` — 72s, subtitled (Chinese), 1280×720
+- `agentbridge-demo-teaser.gif` — short teaser for README
+- `agentbridge-demo-thumb.png` — thumbnail
+- `narration.md` — Chinese subtitles + English draft
+
+Re-render: `pip install imageio imageio-ffmpeg pillow` then
+`PYTHONPATH=src .venv/bin/python demo/render_video.py`

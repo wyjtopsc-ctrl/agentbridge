@@ -8,7 +8,9 @@
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-![example verification output](docs/assets/terminal-demo.svg)
+![demo: reject, revise, accept, verify, tamper](demo/agentbridge-demo-teaser.gif)
+
+[▶ 2-minute demo video (MP4)](demo/agentbridge-demo-zh.mp4) · [storyboard + narration](demo/DEMO.md) · [narration text](demo/narration.md)
 
 > Status: **0.9.3**, pre-1.0, evidence-pack **v0.2 (technical freeze)**. Local CI only; no third-party
 > audit, no customer payment validation, and not a security certification. Default `hashes_only`:

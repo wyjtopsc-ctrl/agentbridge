@@ -14,6 +14,7 @@
 它不做裁决、不判断交付质量；默认只核验摘要，不复核文件内容，报告里会明确写出来。
 
 仓库（MIT）：https://github.com/wyjtopsc-ctrl/agentbridge
+Demo video: https://github.com/wyjtopsc-ctrl/agentbridge/blob/main/demo/agentbridge-demo-zh.mp4
 两分钟演示：`PYTHONPATH=src python3 demo/run_demo.py`
 
 目前是 pre-1.0，只有本地 CI 证据，没有第三方审计。想听听大家：这种“交付证据”在哪些真实流程里

@@ -16,6 +16,7 @@ It is deliberately narrow: no quality judgment, no dispute resolution, no magic.
 does not review file contents, and the report says so explicitly.
 
 Repo + 2-minute demo: https://github.com/wyjtopsc-ctrl/agentbridge
+Demo video: https://github.com/wyjtopsc-ctrl/agentbridge/blob/main/demo/agentbridge-demo-zh.mp4
 Run: `PYTHONPATH=src python3 demo/run_demo.py`
 
 Where do you see this being useful — agent marketplaces, agency → client deliveries, internal

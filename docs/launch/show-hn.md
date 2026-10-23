@@ -25,6 +25,7 @@ Current limits: pre-1.0; `hashes_only` does not review file contents; K3 emergen
 implemented; unanchored tail rollback is undetectable by design; local CI evidence only.
 
 Repo: https://github.com/wyjtopsc-ctrl/agentbridge
+Demo video: https://github.com/wyjtopsc-ctrl/agentbridge/blob/main/demo/agentbridge-demo-zh.mp4
 Release: https://github.com/wyjtopsc-ctrl/agentbridge/releases/tag/v0.9.3
 
 I would value feedback on the threat model and on which workflow you would actually use this for.

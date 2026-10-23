@@ -12,3 +12,4 @@ Current status: pre-1.0, local CI evidence, no independent audit. Looking for de
 real cross-org AI delivery workflows.
 
 https://github.com/wyjtopsc-ctrl/agentbridge
+Demo video: https://github.com/wyjtopsc-ctrl/agentbridge/blob/main/demo/agentbridge-demo-zh.mp4
